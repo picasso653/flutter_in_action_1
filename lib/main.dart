@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'fancy_button.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
+  
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -37,6 +40,48 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
+    });
+  }
+
+  void _resetCounter() {
+    setState(() {
+      _counter = 0;
+      switcherRou();
+      
+    });
+  }
+  void switcherRou(){
+    setState(() {
+      _buttons = _buttons.reversed.toList();
+    });
+  }
+
+  List<Widget> _buttons = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the buttons
+    _buttons = [
+      FancyButton(
+        onPressed: _incrementCounter,
+        text: 'Increment',
+        color: Colors.green,
+      ),
+      FancyButton(
+        onPressed: _decrementCounter,
+        text: 'Decrement',
+        color: Colors.red,
+      ),
+    ];
+  }
+
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -56,14 +101,19 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            Row(
+              children: [
+                ..._buttons
+              ],
+            )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _resetCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), 
+      ),
     );
   }
 }

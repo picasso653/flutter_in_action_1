@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class FancyButton extends StatelessWidget {
-  final  VoidCallback onPressed;
+  final VoidCallback onPressed;
   final String text;
-  const FancyButton({super.key, required this.onPressed, required this.text});
+  final Color color;
+  const FancyButton(
+      {super.key,
+      required this.onPressed,
+      required this.text,
+      required this.color});
 
   @override
   Widget build(BuildContext context) {
